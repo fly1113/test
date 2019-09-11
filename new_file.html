@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>客服在线</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link type="text/css" href="./css/chat.css" rel="stylesheet" />
+		<link type="text/css" href="css/radio.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/webrtc.popup-2.0.0.css" />
+
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/qrcode.min.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/reconnecting-websocket.js"></script>
+		<script type="text/javascript" src="js/WebIM.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	</head>
+	<body>
+
+		<div class="main-content" id="main-content">
+			<div class="chat-page">
+				<div class="chat-header" id="chat-header">
+					<div class="logonbox"></div>
+					<div class="closebox head-right"></div>
+					<div class="hide-box head-right" id="hide-box"></div>
+					<!--<div class="ding-box head-right"></div>-->
+				</div>
+				<div class="msg-content">
+					<div id="scroLeft">
+						<!--历史消息-->
+						<a id="his-st" class="his-st" onclick="showMore()">查看更多历史消息</a>
+						<a class="his-st" id="loading-a" style="display: none;"><img id="loading-pic" src="img/face/loading.gif" /></a>
+						<div id="showMore">
+
+						</div>
+						<!--聊天消息展示区-->
+						<div id="div_hidden"></div>
+					</div>
+				</div>
+				<div class="msg-bottom">
+					<div class="chat-tools">
+						<div id="btnFace" title="选择表情" class="tools-face" style="display: none;"></div>
+						<!--<div id="btnCut" title="剪切" class="tools-cut"></div>-->
+						<div id="btnLmsg" title="留言" class="tools-Lmsg" style="display: none;"></div>
+						<!--<div id="btnJudge" title="评价" class="tools-judge"></div>-->
+						<div id="btnUpload" title="上传文件" class="tools-upload" style="display: none;"><input type="file" name="file" style="display: block; width:20px;opacity: 0; overflow: hidden;top:0px"
+							 id="chooseimginput" onchange="sendImgMsg();" accept="image/jpg,image/jpeg,image/png,video/mp4,video/avi,audio/mp3,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/msword, application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" /></div>
+						<div id="btnVideo" title="视频通话" class="tools-video" style="margin-left: 4px;display: none;"></div>
+						<div id="btnCode" title="扫描二维码" class="tools-code code-select" style="margin-left: 6px;display: none;"></div>
+						<!--<div id="btnBack" title="切回本机" class="tools-back " style="margin-left: 6px;"></div>-->
+						<div id="btnAgent" title="转人工" class="tools-agent " style="margin-left: 6px;"></div>
+
+					</div>
+					<div class="msg-send-box">
+						<textarea class="input" id="txtInput"></textarea>
+						<div class="btnbox">
+							<button type="button" class="btn-v quter-gry-btn" onclick="javascript:OnSendMessage()">发送</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--chat-page end-->
+			<!--face-->
+			<div class="facebox">
+				<ul class="facelist">
+					<li><img src="./img/face/0.gif" alt="[微笑]" /></li>
+					<li><img src="./img/face/1.gif" alt="[撇嘴]" /></li>
+					<li><img src="./img/face/2.gif" alt="[色]" /></li>
+					<li><img src="./img/face/3.gif" alt="[发呆]" /></li>
+					<li><img src="./img/face/4.gif" alt="[得意]" /></li>
+					<li><img src="./img/face/5.gif" alt="[流泪]" /></li>
+					<li><img src="./img/face/6.gif" alt="[害羞]" /></li>
+					<li><img src="./img/face/7.gif" alt="[闭嘴]" /></li>
+					<li><img src="./img/face/8.gif" alt="[睡]" /></li>
+					<li><img src="./img/face/9.gif" alt="[大哭]" /></li>
+					<li><img src="./img/face/10.gif" alt="[尴尬]" /></li>
+					<li><img src="./img/face/11.gif" alt="[发怒]" /></li>
+					<li><img src="./img/face/12.gif" alt="[调皮]" /></li>
+					<li><img src="./img/face/13.gif" alt="[呲牙]" /></li>
+					<li><img src="./img/face/14.gif" alt="[惊讶]" /></li>
+					<li><img src="./img/face/15.gif" alt="[难过]" /></li>
+					<li><img src="./img/face/16.gif" alt="[酷]" /></li>
+					<li><img src="./img/face/17.gif" alt="[冷汗]" /></li>
+					<li><img src="./img/face/18.gif" alt="[抓狂]" /></li>
+					<li><img src="./img/face/19.gif" alt="[吐]" /></li>
+					<li><img src="./img/face/20.gif" alt="[偷笑]" /></li>
+					<li><img src="./img/face/21.gif" alt="[愉快]" /></li>
+					<li><img src="./img/face/22.gif" alt="[白眼]" /></li>
+					<li><img src="./img/face/23.gif" alt="[傲慢]" /></li>
+					<li><img src="./img/face/24.gif" alt="[饥饿]" /></li>
+					<li><img src="./img/face/25.gif" alt="[困]" /></li>
+					<li><img src="./img/face/26.gif" alt="[惊恐]" /></li>
+					<li><img src="./img/face/27.gif" alt="[流汗]" /></li>
+					<li><img src="./img/face/28.gif" alt="[憨笑]" /></li>
+					<li><img src="./img/face/29.gif" alt="[悠闲]" /></li>
+					<li><img src="./img/face/30.gif" alt="[奋斗]" /></li>
+					<li><img src="./img/face/31.gif" alt="[咒骂]" /></li>
+					<li><img src="./img/face/32.gif" alt="[疑问]" /></li>
+					<li><img src="./img/face/33.gif" alt="[嘘]" /></li>
+					<li><img src="./img/face/34.gif" alt="[晕]" /></li>
+					<li><img src="./img/face/35.gif" alt="[疯了]" /></li>
+					<li><img src="./img/face/36.gif" alt="[衰]" /></li>
+					<li><img src="./img/face/37.gif" alt="[骷髅]" /></li>
+					<li><img src="./img/face/38.gif" alt="[敲打]" /></li>
+					<li><img src="./img/face/39.gif" alt="[再见]" /></li>
+					<li><img src="./img/face/40.gif" alt="[擦汗]" /></li>
+					<li><img src="./img/face/41.gif" alt="[抠鼻]" /></li>
+					<li><img src="./img/face/42.gif" alt="[鼓掌]" /></li>
+					<li><img src="./img/face/43.gif" alt="[糗大了]" /></li>
+					<li><img src="./img/face/44.gif" alt="[坏笑]" /></li>
+					<li><img src="./img/face/45.gif" alt="[左哼哼]" /></li>
+					<li><img src="./img/face/46.gif" alt="[右哼哼]" /></li>
+					<li><img src="./img/face/47.gif" alt="[哈欠]" /></li>
+					<li><img src="./img/face/48.gif" alt="[鄙视]" /></li>
+					<li><img src="./img/face/49.gif" alt="[委屈]" /></li>
+				</ul>
+			</div>
+			<!--erCode-->
+			<div class="erCode-container" style="display: none;">
+				<div class="wechat-ercode wechat-ercode-selected" id="wechatCode">切换到微信</div>
+				<div class="app-ercode app-white" id="appCode">切换到APP</div>
+			</div>
+			<div id="qrcode" class="qrcode-content"></div>
+			<!--judge-page-->
+			<div class="judge-page" style="display: none;">
+				<p>请您对本次服务进行评价！</p>
+				<div class="star-rating">
+					<ul id="li-list">
+						<li class="light"><a href="javascript:;">1</a></li>
+						<li class="light"><a href="javascript:;">2</a></li>
+						<li class="light"><a href="javascript:;">3</a></li>
+						<li class="light"><a href="javascript:;">4</a></li>
+						<li class="light"><a href="javascript:;">5</a></li>
+					</ul>
+				</div>
+				<div class="solution-box">
+					<button class="small-btn-size hollow-btn active-hollow-btn" id="solved">已解决</button>
+					<button class="small-btn-size hollow-btn" id="unsolved">未解决</button>
+				</div>
+				<div class="unsolved-box" style="display: none;">
+					<div class="unsolved-btn">
+
+					</div>
+					<div class="area-div">
+						<textarea id="Judge-text" placeholder=""></textarea>
+					</div>
+				</div>
+				<div class="judge-bottom">
+					<button class="gry-btn normal-btn-size" id="judge-cancle">取消</button>
+					<button class="blue-btn normal-btn-size" id="judge-sub">提交</button>
+				</div>
+			</div>
+			<!--judge success page-->
+			<div class="judge-success-page" style="display: none;">
+				<p>感谢您对本次服务做出评价！</p>
+				<img src="img/judge/Smile.png" />
+				<div class="judge-succsee-bottom">
+					<button class="blue-btn normal-btn-size" id="judge-success-page-close">关闭</button>
+				</div>
+			</div>
+			<!--login lmsg-page-->
+			<div class="lmsg-page" style="display: none;">
+				<div class="Lmsg-head">
+					您好，人工服务时间9:00到21:00,目前没有人工客服在线，您可以返回咨询智能客服，或将咨询问题留言，我们会尽快回复您！
+				</div>
+				<div class="Lmsg-content">
+					<p>问题描述:</p>
+					<textarea id="Lmsg-text" placeholder=""></textarea>
+					<p><a id="history-Lmsg">查看历史留言</a></p>
+				</div>
+				<div class="Lmsg-bottom">
+					<button class="gry-btn normal-btn-size" id="Lmsg-cancle">取消</button>
+					<button class="blue-btn normal-btn-size" id="Lmsg-sub">提交留言</button>
+				</div>
+			</div>
+			<!--Not Logged In Lmag page-->
+			<div class="unsigned-Lmsg-page" style="display: none;">
+				<div class="unsigned-lmsg-head">
+					您好，人工服务时间9:00到21:00,目前没有人工客服在线，您可以返回咨询智能客服，或将咨询问题留言，我们会尽快回复您！
+				</div>
+				<div class="unsigned-Lmsg-content">
+					<div class="input-group">
+						<label>姓名：</label><input placeholder="" type="text" class="un-lmsg-name" /><i style="color: #f76e4e;font-weight: bolder;">*</i>
+					</div>
+					<div class="input-group">
+						<label>邮箱：</label><input placeholder="" type="text" class="un-lmsg-email" /><i style="color: #f76e4e;font-weight: bolder;">*</i>
+					</div>
+					<p>问题描述：</p>
+					<textarea id="unsigned-Lmsg-text" placeholder=""></textarea><i style="color: #f76e4e;font-weight: bolder;float: right;">*</i>
+				</div>
+				<div class="unsigned-Lmsg-bottom">
+					<button class="gry-btn normal-btn-size" id="unsigned-Lmsg-back">返回</button>
+					<button class="blue-btn normal-btn-size" id="unsigned-Lmsg-sub">提交留言</button>
+				</div>
+			</div>
+			<!--history-lmsg-page-->
+			<div class="history-Lmsg" style="display: none;">
+				<p class="his-lmg-title">留言记录</p>
+				<div class="Lmsg-list-box">
+					<div class="list-head">
+						<div class="list-date">日期</div>
+						<div class="list-time">时间</div>
+						<div class="list-que">问题</div>
+					</div>
+					<div class="content-list">
+						<!--<div class="list-content">
+				<div class="list-date">2017-10-17</div>
+				<div class="list-time">17:50</div>
+				<div class="list-que">我的额度还有多少</div>
+				<div class="history-detail"><a onclick="detailShow()">详情</a></div>
+			</div>-->
+					</div>
+
+				</div>
+				<div class="detail-Lmsg" style="display: none;">
+					<!--<p class="p-b">您的留言：</p>
+			<a>我的额度还有多少？</a>
+			<p class="p-b">客服回复：</p>
+			<a>尊敬的客户您好，截止到2017-10-17 16：00点止，您的额度位RMB 75000元。</a><br/>
+			<a>感谢您的留言，祝您生活愉快！</a>-->
+				</div>
+				<div class="history-Lmsg-bottom">
+					<button class="blue-btn normal-btn-size" id="history-Lmsg-bak">返回</button>
+				</div>
+			</div>
+			<!--modal div-->
+			<div class="modal-page">
+			</div>
+			<div class="login-box" id="login-box">
+				<p class="head-tips">请选择您要办理的业务：</p>
+				<div class="button-holder">
+					<!--<div class="radio-box">
+					<input type="radio" id="radio-1-1" name="radio-1-set" class="regular-radio" checked /><label for="radio-1-1"></label><a class="place-st">业务咨询</a><br />
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="radio-1-2" name="radio-1-set" class="regular-radio" /><label for="radio-1-2"></label><a class="place-st">业务办理</a><br />
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="radio-1-3" name="radio-1-set" class="regular-radio" /><label for="radio-1-3"></label><a class="place-st">投诉建议</a><br />
+				</div>-->
+					<p>正在加载业务类型……</p>
+				</div>
+				<div class="login-box-bottom">
+					<button class="blue-btn normal-btn-size" id="sureBtn">确定</button>
+				</div>
+			</div>
+			<div class="login-box" id="tip-box" style="display: none;">
+				<h3>提示</h3>
+				<div class="tips">
+					<p>是否结束会话？</p>
+				</div>
+				<div class="login-box-bottom">
+					<button class="gry-btn normal-btn-size" id="noBtn-session">否</button>
+					<button class="blue-btn normal-btn-size" id="yesBtn-session">是</button>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper"></div>
+		<script type="text/javascript" src="js/jquery.nicescroll.js"></script>
+		<script type="text/javascript" src="js/verify.js"></script>
+		<script type="text/javascript" src="js/webchat.js"></script>
+		<script type="text/javascript" src="js/start.js"></script>
+		<!--新版 webrtc 相关-->
+		<script type="text/javascript" src="js/webrtc/webrtc.min.js"></script>
+		<script type="text/javascript" src="js/webrtc/recorder.min.js"></script>
+		<script type="text/javascript" src="js/webrtc/xchat.min.js"></script>
+		<script type="text/javascript" src="js/webrtc/webrtc.message.handler.js"></script>
+		<script type="text/javascript" src="js/webrtc/webrtc.uikit-2.0.0.js"></script>
+		<script type="text/javascript" src="js/config.js"></script>
+	</body>
+</html>
