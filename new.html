@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="http://10.231.235.17:80/backend/kbp/open/api/datatech/plugins/ikhelper/css" />
+	</head>
+	<body>
+		<div>
+			<ul>  
+				<li><label>账号</label><input type="text" id="username"></li>  
+				<li><label>密码</label><input type="password" id="password"></li>  
+				<li><label>系列id</label><input id="seriesID" type="text"></li>  
+				<li><label>锚点id</label><input id="anchorID" type="text"></li>  
+			</ul>  
+			<!-- 生成锚点时做初始化 -->  
+			 <button id="generation">生成锚点</button>  
+		</div>
+		<div>
+			<label>锚点测试：</label>  
+			<!-- 初始化后将转化为问号图标 -->  
+			<span id="anchorTest" class="ow_anchor">anchor</span>  
+		</div>  
+		<div>  
+			<label>问题id</label><input id="questionID" type="text">  
+			<!-- 生成锚点已做初始化，点击直接根据问题id展示问题弹窗 -->  
+			<button id="questionDisplay">问题展示</button>  
+		</div>  
+	</body>
+	<script type="text/javascript" src="http://10.231.235.17:80/backend/kbp/open/api/datatech/plugins/ikhelper/js"></script>
+	<script type="text/javascript" src="http://10.231.235.17:80/backend/kbp/open/api/datatech/plugins/crypto/js"></script>
+	<script type="text/javascript">
+		$ikp(document).ready(function() {
+			$ikp("#generation").click(function() {
+				var username = $ikp("#username").val();
+				var password = $ikp("#password").val();
+				var seriesID = $ikp("#seriesID").val();
+				var anchorID = $ikp("#anchorID").val();
+				if (!seriesID || !anchorID) {
+					alert('不可为空');
+					return;
+				}
+				$ikp('#anchorTest').html(anchorID);
+				window.ow_initWidget('http://10.231.235.17:80/backend/kbp/oauth/token?grant_type=password&scope=read%20write',
+					'http://10.231.235.17:80/backend/kbp', username, password, seriesID);
+			});
+			$ikp("#questionDisplay").click(function() {
+				var seriesID = $ikp("#seriesID").val();
+				var questionID = $ikp("#questionID").val();
+				if (!seriesID || !questionID) {
+					alert('不可为空');
+					return;
+				}
+				window.getQuestionDetail(questionID, seriesID);
+			});
+		});
+	</script>
+</html>

@@ -13,8 +13,8 @@
 		var width = docEl.getBoundingClientRect().width;
 		maxWidth = maxWidth || 540;
 		width > maxWidth && (width = maxWidth);
-		var rem = width / designWidth * 20;
-		remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+		var rem = width / designWidth * 40;
+		remStyle.innerHTML = 'html,body{font-size:' + rem + 'px;}';
 	}
 
 	if (docEl.firstElementChild) {
@@ -39,12 +39,4 @@
 			tid = setTimeout(refreshRem, 300);
 		}
 	}, false);
-
-	if (doc.readyState === "complete") {
-		doc.body.style.fontSize = "16px";
-	} else {
-		doc.addEventListener("DOMContentLoaded", function(e) {
-			doc.body.style.fontSize = "16px";
-		}, false);
-	}
 })(750, 750);

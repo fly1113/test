@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/base.css">
+		<title>骨架屏</title>
+	</head>
+	<body>
+		<div id="main" class="skt-loading">
+
+			<div class="skeleton mui-text-center">
+				<img src="http://pic1.win4000.com/wallpaper/c/53cdd1f7c1f21.jpg" width="100%" style="display: block;" />
+			</div>
+
+			<ul class="mui-table-view mui-grid-view mui-grid-9 margin-top bg-white">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#" class="skeleton">
+						<img src="images/timg.jpg" height="35" />
+						<div class="mui-media-body">Home</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#" class="skeleton">
+						<img src="images/timg.jpg" height="35" />
+						<div class="mui-media-body">Email</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#" class="skeleton">
+						<img src="images/timg.jpg" height="35" />
+						<div class="mui-media-body">Chat</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#" class="skeleton">
+						<img src="images/timg.jpg" height="35" />
+						<div class="mui-media-body">location</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#" class="skeleton">
+						<img src="images/timg.jpg" height="35" />
+						<div class="mui-media-body">Search</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#" class="skeleton">
+						<img src="images/timg.jpg" height="35" />
+						<div class="mui-media-body">Phone</div>
+					</a>
+				</li>
+			</ul>
+
+			<ul class="mui-table-view margin-top">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<div class="mui-media-object mui-pull-right skeleton">
+							<img src="images/yuantiao.jpg" height="100%" />
+						</div>
+						<div class="mui-media-body">
+							<h4 class="mui-ellipsis skeleton">远眺</h4>
+							<p class="mui-ellipsis skeleton">静静的看这个世界，最后终于疯了</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<div class="mui-media-object mui-pull-right skeleton">
+							<img src="images/shuijiao.jpg" height="100%" />
+						</div>
+						<div class="mui-media-body">
+							<h4 class="mui-ellipsis skeleton">幸福</h4>
+							<p class="mui-ellipsis skeleton">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<div class="mui-media-object mui-pull-right skeleton">
+							<img src="images/muwu.jpg" height="100%" />
+						</div>
+						<div class="mui-media-body">
+							<h4 class="mui-ellipsis skeleton">木屋</h4>
+							<p class="mui-ellipsis skeleton">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		setTimeout(() => {
+			var $main = document.getElementById('main');
+			$main.className = $main.className.replace('skt-loading', '')
+		}, 2000);
+	</script>
+</html>
