@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>主页面</title>
-	</head>
-	<body>
-		<h1>主页面</h1>
-		<iframe id="child" src="http://127.0.0.1:8848/test/b.html"></iframe>
-		<button type="button" onclick="sendMessage()">发送新的信息</button>
-		<div>
-			<h2>主页面接收消息</h2>
-			<span id="message"></span>
-		</div>
-	</body>
-	<script>
-		var childLinkurl="http://127.0.0.1:8848/test/b.html";
-		window.onload = function() {
-			document.getElementById('child').contentWindow.postMessage("主页面消息", childLinkurl);
-		}
-		window.addEventListener('message', function(event) {
-			//console.log(event);
-			document.getElementById('message').innerHTML = "收到" + event.origin + "消息：" + event.data;
-		}, false);
-		function sendMessage(){
-			document.getElementById('child').contentWindow.postMessage('新消息需要展示',childLinkurl);
-		}
-	</script>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>主页面</title>
+</head>
+
+<body>
+    <h1>主页面</h1>
+    <iframe id="child" src="http://127.0.0.1:8848/test/b.html"></iframe>
+    <button type="button" onclick="sendMessage()">发送新的信息</button>
+    <div>
+        <h2>主页面接收消息</h2>
+        <span id="message"></span>
+    </div>
+</body>
+<script>
+    var childLinkurl = "http://127.0.0.1:8848/test/b.html";
+    window.onload = function() {
+        document.getElementById('child').contentWindow.postMessage("主页面消息", childLinkurl);
+    }
+    window.addEventListener('message', function(event) {
+        //console.log(event);
+        document.getElementById('message').innerHTML = "收到" + event.origin + "消息：" + event.data;
+    }, false);
+
+    function sendMessage() {
+        document.getElementById('child').contentWindow.postMessage('新消息需要展示', childLinkurl);
+    }
+</script>
+
 </html>

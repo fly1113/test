@@ -49,7 +49,7 @@
 				var questionID = $ikp("#questionID").val();
 				if (!seriesID || !questionID) {
 					alert('不可为空');
-					return;
+					return
 				}
 				window.getQuestionDetail(questionID, seriesID);
 			});
