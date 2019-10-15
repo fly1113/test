@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<h3>获取任意颜色</h3>
+
+
+	</body>
+	<script>
+		//获取十六进制颜色
+		function randomColor() {
+			var color = "";
+			for (var i = 0; i < 6; i++) {
+				color += (Math.random() * 16 | 0).toString(16);
+			}
+			return "#" + color;
+		}
+		document.querySelector("h3").style.color = randomColor();
+	</script>
+</html>

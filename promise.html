@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Promise</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		const myPromise = new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve("hahha");
+			}, 5000)
+		})
+
+		myPromise.then(function(data) {
+			console.log(data)
+		})
+
+		Promise.resolve({
+				msg: 'Resolve!'
+			})
+			.then(msg => console.log(msg));
+
+		const setDatas = new Promise(function(resolve, reject) {
+			resolve({
+				name: "hah",
+				value: "001"
+			})
+		});
+		async function getData() {
+			var datas = await setDatas;
+			console.log(datas);
+		}
+
+		getData();
+	</script>
+</html>

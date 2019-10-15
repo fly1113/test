@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>proxy</title>
+	</head>
+	<body>
+		<h2>https://blog.csdn.net/weixin_40687883/article/details/102565285</h2>
+	</body>
+	<script>
+		let handle = {
+			get: function(target, name) {
+				return name in target ? target[name] : 37
+			}
+		}
+
+		let p = new Proxy({}, handle);
+
+		p.a = 1;
+		p.b = undefined;
+
+		console.log(p.a, p.b); //1 undefined
+
+		console.log('c' in p, p.c); //false 37
+
+		let target = {};
+
+		let w = new Proxy(target, {});
+		p.a = 37;
+		console.log(p.a); //37
+
+		//验证
+		let validate = {
+			set: function(obj, prop, value) {
+				if (prop == "age") {
+					if (!Number.isInteger(value)) {
+						throw new TypeError("The age is not an integer");
+					}
+					if (value > 200) {
+						throw new RangeError("The age seems invalid");
+					}
+				}
+				obj[prop] = value;
+			}
+		}
+
+		let person = new Proxy({}, validate);
+		person.age = 26;
+		console.log(person.age);
+		//person.age = "hha";	// 抛出异常: Uncaught TypeError: The age is not an integer
+		//person.age = 300;		// 抛出异常: Uncaught RangeError: The age seems invalid
+		//扩展构造函数
+	</script>
+	<!-- https://blog.csdn.net/weixin_40687883/article/details/102565285 -->
+	<script>
+		function defineReactive(data, key, value) {
+		  Object.defineProperty(data, key, {
+		    enumerable: true,
+		    configurable: true,
+		     get: function defineGet() {
+		      console.log(`get key: ${key} value: ${value}`)
+		      return value
+		    },
+		     set: function defineSet(newVal) {
+		      console.log(`set key: ${key} value: ${newVal}`)
+		      value = newVal
+		    }
+		  })
+		}
+		
+		function observe(data) {
+		  Object.keys(data).forEach(function(key) {
+		    defineReactive(data, key, data[key])
+		  })
+		}
+		
+		let arr = [1, 2, 3]
+		observe(arr)
+
+	</script>
+</html>

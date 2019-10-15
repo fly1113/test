@@ -97,8 +97,8 @@ class LoginControl extends React.Component {
     this.state = {
       stated: false
     };
-    this.loginIn = this.loginIn.bind(this, this.state);
-    this.loginOut = this.loginOut.bind(this, this.state);
+    this.loginIn = this.loginIn.bind(this);
+    this.loginOut = this.loginOut.bind(this);
   }
   loginIn() {
     this.setState({

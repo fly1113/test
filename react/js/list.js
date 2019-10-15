@@ -4,15 +4,15 @@ class ListControl extends React.Component {
     this.state = {
       lists: [
         {
-          name: "hh",
+          name: "这是第0行",
           id: "0"
         },
         {
-          name: "hhhh",
+          name: "这是第1行",
           id: "1"
         },
         {
-          name: "hhhhhh",
+          name: "这是第2行",
           id: "2"
         }
       ]
@@ -21,7 +21,9 @@ class ListControl extends React.Component {
   render() {
     const lists = this.state.lists;
     let str = null;
-    str = lists.map(item => <li key={item.id.toString()}>{item.name}</li>);
+    str = lists.map(item => (
+      <ListItem key={item.id.toString()} name={item.name} />
+    ));
     return (
       <div>
         <ul>{str}</ul>
@@ -29,5 +31,14 @@ class ListControl extends React.Component {
     );
   }
 }
+
+class ListItem extends React.Component {
+  render() {
+    return <li>{this.props.name}</li>;
+  }
+}
+// function ListItem(props) {
+//   return <li>{props.name}</li>;
+// }
 
 ReactDOM.render(<ListControl />, document.getElementById("list"));

@@ -25,12 +25,13 @@
 	</body>
 	<script src="js/flexible.js" type="text/javascript"></script>
 </html>
+
 <script>
 	let ul = document.querySelector("ul");
 	let pageInfo = {
 		pageIndex: 0,
 		pageSize: 50,
-		totalNum: 99
+		totalNum: 999
 	}
 	//循环加载数据
 	function loop(curTotal, curIndex) {
@@ -49,7 +50,7 @@
 		}, 0);
 	}
 	loop(pageInfo.totalNum, pageInfo.pageIndex);
-	
+
 	//ul.onscroll = scroll();
 
 	function scroll() {

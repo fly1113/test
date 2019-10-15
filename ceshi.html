@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>测试</title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	</head>
+	<body>
+
+	</body>
+	<script>
+		$.ajax({
+			url: "http://chigua.yuqing.pro:99/Api/TopicFollow/ExportTopicFollowForOfficialLetter",
+			type: "post",
+			dataType: "json",
+			data: {
+				PageIndex: 1,
+				PageSize: 10,
+				TopicOrderBy: 2,
+				FollowIds: [4263193,4263076]
+			},
+			timeout: 5000,
+			beforeSend: function(request) {
+				request.setRequestHeader("Content-Type", "application/json");
+			},
+			success: function(respone) {
+				if (respone) {
+					console.log(respone);
+				}
+			},
+			error: function(e) {
+				console.log(e.responseJSON);
+			}
+		})
+	</script>
+</html>
