@@ -6,31 +6,18 @@
 		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 	</head>
 	<body>
-
+		<button type="button" class="btn">001</button>
+		<button type="button" class="btn">001</button>
+		<button type="button" class="btn">001</button>
+		<button type="button" class="btn">001</button>
+		<button type="button" class="btn">001</button>
 	</body>
 	<script>
-		$.ajax({
-			url: "http://chigua.yuqing.pro:99/Api/TopicFollow/ExportTopicFollowForOfficialLetter",
-			type: "post",
-			dataType: "json",
-			data: {
-				PageIndex: 1,
-				PageSize: 10,
-				TopicOrderBy: 2,
-				FollowIds: [4263193,4263076]
-			},
-			timeout: 5000,
-			beforeSend: function(request) {
-				request.setRequestHeader("Content-Type", "application/json");
-			},
-			success: function(respone) {
-				if (respone) {
-					console.log(respone);
-				}
-			},
-			error: function(e) {
-				console.log(e.responseJSON);
-			}
-		})
+		const buttons = document.querySelectorAll('.btn');
+		for(let i = 0; i < buttons.length; i++) {
+		  buttons[i].onclick = function() {
+		    console.log(i);
+		  }
+		}
 	</script>
 </html>
