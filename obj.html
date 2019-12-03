@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var aaa = {
+				"a001": "21212",
+				"b001": "q2344"
+			}
+			for (var i in aaa) {
+				console.log(i)
+			}
+
+			var numLength = 5;
+			var initNum = 0;
+			var time = setInterval(function() {
+				if (initNum == numLength) {
+					initNum = 0;
+				}
+				alert(initNum);
+				initNum++;
+			}, 3000)
+		</script>
+	</body>
+</html>

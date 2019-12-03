@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style>
+		.record {
+			border: 1px solid #dedede;
+			position: relative;
+			padding: 10px;
+		}
+
+		.record::after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			top: -20px;
+			display: block;
+			border-width: 10px;
+			border-style: solid;
+			border-color: transparent transparent #e8e8e8 transparent;
+		}
+	</style>
+	<body>
+		<view class="record">
+			<view class="color333">王宇</view>
+			<view class="color666">19/02/12 09:30</view>
+		</view>
+	</body>
+</html>

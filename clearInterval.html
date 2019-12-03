@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<button type="button" onclick="intervalStart()">第1次</button>
+		<button type="button" onclick="intervalStart()">第2次</button>
+		<button type="button" onclick="intervalStart()">第3次</button>
+		<script>
+			var timer = null;
+			var timerList = [];
+
+			function intervalStart() {
+				intervalEnd();
+				timer = window.setInterval(function() {
+					console.log("开始了")
+				}, 2000);
+				timerList.push(timer);
+			}
+
+			function intervalEnd() {
+				if (timer) {
+					console.log("结束了");
+					timerList.forEach((item, index) => {
+						clearInterval(item);
+					})
+					timerList = [];
+					timer = 0;
+				}
+			}
+		</script>
+	</body>
+</html>
