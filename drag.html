@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拖动</title>
+		<style type="text/css">
+			.drag {
+				width: 100px;
+				height: 100px;
+				z-index: 200;
+			}
+
+			#drag1 {
+				background: red
+			}
+
+			#drag2 {
+				background: #E8D098;
+			}
+
+			#drag3 {
+				background: greenyellow;
+			}
+
+			#drag4 {
+				background: #E8FFE8;
+			}
+
+			#parent {
+				width: 300px;
+				height: 300px;
+				background: blue;
+			}
+
+			.linkUiView {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: -1;
+			}
+		</style>
+	</head>
+	<body id="body">
+		<p>拖动时可能被选中的文本……………………</p>
+		<div id="parent">
+			<div id="drag1" class="drag"></div>
+			<div id="drag2" class="drag"></div>
+			<div id="drag3" class="drag"></div>
+			<div id="drag4" class="drag"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var getCoords = function(el) {
+			var box = el.getBoundingClientRect(),
+				doc = el.ownerDocument,
+				body = doc.body,
+				html = doc.documentElement,
+				clientTop = html.clientTop || body.clientTop || 0,
+				clientLeft = html.clientLeft || body.clientLeft || 0,
+				top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop,
+				left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft
+			return {
+				'top': top,
+				'left': left
+			};
+		};
+		var Drag = function(id) {
+			var el = document.getElementById(id),
+				options = arguments[1] || {},
+				container = options.container || document.documentElement,
+				limit = false || options.limit,
+				lockX = false || options.lockX,
+				lockY = false || options.lockY;
+			el.style.position = "absolute";
+			var drag = function(e) {
+				e = e || window.event;
+				el.style.cursor = "pointer";
+				!+"\v1" ? document.selection.empty(): window.getSelection().removeAllRanges();
+				var _left = e.clientX - el.offset_x,
+					_top = e.clientY - el.offset_y;
+				if (limit) {
+					var _right = _left + el.offsetWidth,
+						_bottom = _top + el.offsetHeight,
+						_cCoords = getCoords(container),
+						_cLeft = _cCoords.left,
+						_cTop = _cCoords.top,
+						_cRight = _cLeft + container.clientWidth,
+						_cBottom = _cTop + container.clientHeight;
+					_left = Math.max(_left, _cLeft);
+					_top = Math.max(_top, _cTop);
+					if (_right > _cRight) {
+						_left = _cRight - el.offsetWidth;
+					}
+					if (_bottom > _cBottom) {
+						_top = _cBottom - el.offsetHeight;
+					}
+				}
+				if (lockX) {
+					_left = el.lockX;
+				}
+				if (lockY) {
+					_top = el.lockY;
+				}
+				el.style.left = _left + "px";
+				el.style.top = _top + "px";
+				el.innerHTML = parseInt(el.style.left, 10) + " x " + parseInt(el.style.top, 10);
+			}
+
+			var dragend = function() {
+				document.onmouseup = null;
+				document.onmousemove = null;
+			}
+
+			var dragstart = function(e) {
+				e = e || window.event;
+				if (lockX) {
+					el.lockX = getCoords(el).left;
+				}
+				if (lockY) {
+					el.lockY = getCoords(el).top;
+				}
+				if (/a/ [-1] == 'a') {
+					el.offset_x = e.layerX
+					el.offset_y = e.layerY
+				} else {
+					el.offset_x = e.offsetX
+					el.offset_y = e.offsetY
+				}
+				document.onmouseup = dragend;
+				document.onmousemove = drag;
+				el.style.zIndex = ++Drag.z;
+				return false;
+			}
+			Drag.z = 999;
+			el.onmousedown = dragstart;
+		}
+
+		window.onload = function() {
+			//var p = document.getElementById("parent");//在parent中移动
+			//var p = document.getElementsByTagName("body")[0];//只能在body中移动
+			//创建一个空白div    指定移动区域
+			if (!document.getElementById("linkUiView")) {
+				document.createElement("div");
+				var linkUiView = document.createElement("div");
+				linkUiView.id = "linkUiView";
+				linkUiView.classList.add("linkUiView");
+				document.body.appendChild(linkUiView);
+			}
+			var p = document.getElementById("linkUiView");
+			new Drag("drag1", {
+				container: p,
+				limit: true,
+				lockX: true
+			});
+			new Drag("drag2", {
+				container: p,
+				limit: true,
+				lockY: true
+			});
+			new Drag("drag3", {
+				container: p,
+				limit: true
+			});
+			new Drag("drag4", {
+				container: p,
+				limit: false
+			});
+		};
+	</script>
+
+</html>
